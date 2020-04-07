@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Ex1.Views.FlightControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ex1.Views" xmlns:Views="clr-namespace:FlightSimulator.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800">
+    <Viewbox>
+    <Grid>
+        <Views:Joystick Margin="230" x:Name="Joystick"></Views:Joystick>
+        <TextBox x:Name="RudderText" Height="50" Width="200" Text="←Rudder→" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Margin="300,130,300,620" Background="Transparent"></TextBox>
+        <TextBox x:Name="ElevatorText" Height="50" Text="←Elevator→" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Margin="584,375,16,375" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBox x:Name="ThrottleText" Height="50" Width="200" Text="Throttle" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Margin="300,620,300,130" Background="Transparent"/>
+        <TextBox x:Name="AileronText" Height="50" Text="Aileron" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Margin="16.5,375,583,375" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Slider x:Name="thrSlider" Margin="230,670,230,112" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1"/>
+        <Slider x:Name="ailSlider" Margin="-87,391,547,391" Minimum="-1" Maximum="1" IsSnapToTickEnabled="True" Value="0" TickFrequency="0.1" RenderTransformOrigin="0.5,0.5">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <TextBox x:Name="ThrottleValueText" Height="50" Text="{Binding ElementName=thrSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Margin="350,570,350,180" Background="Transparent"/>
+        <TextBox x:Name="RudderValueText" Height="50" FontSize="36"  Text="{Binding Path=Rudder, Mode=OneWay, ElementName=Joystick}" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Margin="350,180,350,570" Background="Transparent"/>
+        <TextBox x:Name="AileronValueText" Height="50" Text="{Binding ElementName=ailSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Margin="142,375,570,375" Background="Transparent"/>
+        <TextBox x:Name="ElevatorValueText" Height="50" Text="{Binding ElementName=Joystick, Mode=OneWay, Path=Elevator}" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Margin="570,375,142,375" Background="Transparent"/>
+    </Grid>
+    </Viewbox>
+</UserControl>
