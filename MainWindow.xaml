@@ -9,6 +9,8 @@
         Title="MainWindow" Height="1080" Width="1920">
 
     <Grid>
+        <Views:ServerDetails HorizontalAlignment="Left" VerticalAlignment="Top" Height="215" Width="1018"></Views:ServerDetails>
+        <Views:Map HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="782" Width="1048"></Views:Map>
         <Views:FlightControls HorizontalAlignment="Right" VerticalAlignment="Bottom" Canvas.Left="1387" Canvas.Top="492" Height="501" Width="751"/>
         <Views:Dashboard HorizontalAlignment="Right" VerticalAlignment="Top" Height="548" Width="751"></Views:Dashboard>
     </Grid>

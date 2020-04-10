@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Ex1.Views.Dashboard"
+             x:Name="dashboardVals"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -21,21 +22,21 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="IHD_Text"  Text="Indicated Heading Degree" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Margin="0,22,0,10" Height="25"/>
-            <TextBox x:Name="_Txt"  Grid.Column="1" Text="0" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
+            <TextBox x:Name="_Txt"  Grid.Column="1" Text="{Binding ElementName=dashboardVals, Path=HeadingDegree, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
             <TextBox x:Name="_Text"  Grid.Column="2" Text="Indicated Altitude" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,22,0,10"/>
-            <TextBox x:Name="_asdt"  Grid.Column="3" Text="0" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
+            <TextBox x:Name="_asdt"  Grid.Column="3" Text="{Binding ElementName=dashboardVals, Path=Altitude, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
             <TextBox x:Name="GIVS_Text" Grid.Row="1" Text="Indicated Vertical Speed" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
-            <TextBox x:Name="GIasdVS_Text" Grid.Row="1" Grid.Column="1" Text="0" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
+            <TextBox x:Name="GIasdVS_Text" Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=dashboardVals, Path=VerticalSpeed, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
             <TextBox x:Name="GIV_Text" Grid.Row="1" Grid.Column="2" Text="Internal Roll Degree" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,21,0,10"/>
-            <TextBox x:Name="GIadVS_Text" Grid.Row="1" Grid.Column="3" Text="0" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
+            <TextBox x:Name="GIadVS_Text" Grid.Row="1" Grid.Column="3" Text="{Binding ElementName=dashboardVals, Path=RollDegree, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
             <TextBox x:Name="GIGS_Text" Grid.Row="2" Text="Indicated Ground Speed" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,21,0,10"/>
-            <TextBox x:Name="GIaaVS_Text" Grid.Row="2" Grid.Column="1" Text="0" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
+            <TextBox x:Name="GIaaVS_Text" Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=dashboardVals, Path=GroundSpeed, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
             <TextBox x:Name="GIGS_ext" Grid.Row="2" Grid.Column="2" Text="Internal Pitch Degree" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,21,0,10"/>
-            <TextBox x:Name="as" Grid.Row="2" Grid.Column="3" Text="0" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
+            <TextBox x:Name="as" Grid.Row="2" Grid.Column="3" Text="{Binding ElementName=dashboardVals, Path=PitchDegree, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
             <TextBox x:Name="IS_Text" Grid.Row="3" Text="Indicated Speed" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,21,0,10"/>
-            <TextBox x:Name="GIasaText" Grid.Row="3" Grid.Column="1" Text="0" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
-            <TextBox x:Name="IS_Txt" Grid.Row="3" Grid.Column="2" Text="Indicated Altitude" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,21,0,10"/>
-            <TextBox x:Name="GIaaText" Grid.Row="3" Grid.Column="3" Text="0" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
+            <TextBox x:Name="GIasaText" Grid.Row="3" Grid.Column="1" Text="{Binding ElementName=dashboardVals, Path=Speed, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
+            <TextBox x:Name="IS_Txt" Grid.Row="3" Grid.Column="2" Text="Alt. Indicated Altitude" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,21,0,10"/>
+            <TextBox x:Name="GIaaText" Grid.Row="3" Grid.Column="3" Text="{Binding ElementName=dashboardVals, Path=AltimAltitude, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
         </Grid>
     </Viewbox>
 </UserControl>
