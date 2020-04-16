@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Ex1.Model
 {
@@ -12,20 +13,22 @@ namespace Ex1.Model
     {
 
         
-
-
+           
+     
         //Dashboard values  
-        public double headingDegree = 0.0;
-        public double verticalSpeed = 0.0;
-        public double groundSpeed = 0.0;
-        public double gpsAltFt = 0.0;
-        public double rollDegree = 0.0;
-        public double pitchDegree = 0.0;
-        public double AltitudeIndicator = 0.0;
-        public double airSpeed = 0.0;
+        public string headingDegree = "ERR";
+        public string verticalSpeed = "ERR";
+        public string groundSpeed = "ERR";
+        public string gpsAltFt = "ERR";
+        public string rollDegree = "ERR";
+        public string pitchDegree = "ERR";
+        public string AltitudeIndicator = "ERR";
+        public string airSpeed = "ERR"  ;
 
-        public double lan;
-        public double lon;
+        public string lan = "ERR";
+        public string lon = "ERR";
+
+        public string error;
         /// <summary>
         /// Defines the PropertyChanged.
         /// </summary>
@@ -46,12 +49,19 @@ namespace Ex1.Model
         /// <summary>
         /// Sets the Aileron.
         /// </summary>
-   
+        
+
+
+
+        public string ErrorList { get { return this.error; }
+            set { error = value;
+                this.NotifyPropertyChanged("ErrorList");
+            } }
 
         /// <summary>
         /// Gets or sets the AirSpeed.
         /// </summary>
-        public double AirSpeed { get
+        public string AirSpeed { get
             {
                 return this.airSpeed;
             }
@@ -63,7 +73,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the Altitude - gps!
         /// </summary>
-        public double Altitude
+        public string Altitude
         {
             get { return this.gpsAltFt; }
             set
@@ -76,7 +86,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the AltMeter.
         /// </summary>
-        public double AltMeter
+        public string AltMeter
         {
             get { return this.AltitudeIndicator; }
             set
@@ -90,7 +100,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the GroundSpeed.
         /// </summary>
-        public double GroundSpeed {
+        public string GroundSpeed {
             get { return this.groundSpeed; }
             set
             {
@@ -102,7 +112,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the Heading.
         /// </summary>
-        public double Heading
+        public string Heading
         {
             get { return this.headingDegree; }
             set
@@ -115,7 +125,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the Pitch.
         /// </summary>
-        public double Pitch
+        public string Pitch
         {
             get { return this.pitchDegree; }
             set
@@ -128,7 +138,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the PlaneHoriz.
         /// </summary>
-        public double PlaneHoriz
+        public string PlaneHoriz
         {
             get { return this.lan; }
             set
@@ -141,7 +151,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the PlaneVert.
         /// </summary>
-        public double PlaneVert
+        public string PlaneVert
         {
             get { return this.lon; }
             set
@@ -154,7 +164,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the Roll.
         /// </summary>
-        public double Roll
+        public string Roll
         {
             get { return this.rollDegree; }
             set
@@ -168,7 +178,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the VerticalSpeed.
         /// </summary>
-        public double VerticalSpeed
+        public string VerticalSpeed
         {
             get { return this.verticalSpeed; }
             set
@@ -183,10 +193,11 @@ namespace Ex1.Model
         /// </summary>
         /// <param name="ip">The ip<see cref="string"/>.</param>
         /// <param name="port">The port<see cref="int"/>.</param>
-        public void connect(string ip, int port)
+        public async Task<bool> connect(string ip, int port)
         {
-            if (isConnected == false) { this.client.connect(ip, port); }
-           
+            await client.connect(ip, port);
+            stop = false;
+            return client.checkConncetion();
         }
 
         /// <summary>
@@ -206,10 +217,11 @@ namespace Ex1.Model
         /// </summary>
         public void start()
         {
-           
 
 
 
+
+            string checkStr = "";
             new Thread(delegate ()
             {
               
@@ -218,26 +230,58 @@ namespace Ex1.Model
                     while (!stop)
                     {
                         mute.WaitOne();
+
                         client.write("get /instrumentation/heading-indicator/indicated-heading-deg\n");
-                        this.headingDegree = Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("Heading"); }
+                        this.headingDegree = checkStr;
+
                         client.write("get /instrumentation/gps/indicated-vertical-speed\n");
-                        this.verticalSpeed = Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("Vertical Speed"); }
+                        this.verticalSpeed = checkStr;
+
+                            
                         client.write("get /instrumentation/gps/indicated-ground-speed-kt\n");
-                        this.groundSpeed = Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("Ground Speed"); }
+                        this.groundSpeed = checkStr;
+
                         client.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
-                        this.airSpeed= Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("Air Speed"); }
+                        this.airSpeed= checkStr;
+
                         client.write("get /instrumentation/attitude-indicator/internal-roll-deg\n");
-                        this.rollDegree= Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("Roll Degree"); }
+                        this.rollDegree= checkStr;
+
                         client.write("get /instrumentation/gps/indicated-altitude-ft\n");
-                        this.gpsAltFt= Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("GPS altitude"); }
+                        this.gpsAltFt= checkStr;
+
                         client.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
-                        this.pitchDegree= Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("Pitch Degree"); }
+                        this.pitchDegree= checkStr;
+
                         client.write("get /instrumentation/altimeter/indicated-altitude-ft\n");
-                        this.AltitudeIndicator= Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("Altitude"); }
+                        this.AltitudeIndicator= checkStr;
+
                         client.write("get /position/latitude-deg\n");
-                        this.lan= Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("Latitude"); }
+                        this.lan= checkStr;
+
                         client.write("get /position/longitude-deg\n");
-                        this.lon= Convert.ToDouble(client.read());
+                        checkStr = client.read();
+                        if (checkStr == "ERR") { getError("Longtitude"); }
+                        this.lon= checkStr;
+
                         mute.ReleaseMutex();
 
 
@@ -247,7 +291,7 @@ namespace Ex1.Model
 
                 catch
                 {
-                   
+                    ErrorList += "Client connection problem, please reconnect\n";
                 }
 
 
@@ -322,6 +366,10 @@ namespace Ex1.Model
             this.mute.ReleaseMutex();
         }
        
+        public void getError(string propName)
+        {
+            error += "an error has occured while fetching data on " + propName + " property \n";
+        }
 
     }
 }

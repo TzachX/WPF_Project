@@ -1,30 +1,31 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Ex1.Model
 {
     interface IPlaneModel : INotifyPropertyChanged
     {
         //connection
-        void connect(string ip, int port);
+        Task<bool> connect(string ip, int port);
         void disconnect();
         void start();
 
         //Plane Information 
-        double AirSpeed { get; set; }
-        double Altitude { get; set; }
-        double Roll { get; set; }
-        double Pitch { get; set; }
-        double AltMeter { get; set; }
-        double Heading { get; set; }
-        double GroundSpeed { get; set; }
-        double VerticalSpeed { get; set; }
+        string AirSpeed { get; set; }
+        string Altitude { get; set; }
+        string Roll { get; set; }
+        string Pitch { get; set; }
+        string AltMeter { get; set; }
+        string Heading { get; set; }
+        string GroundSpeed { get; set; }
+        string VerticalSpeed { get; set; }
 
 
-        double PlaneHoriz { get; set; }
-        double PlaneVert { get; set; }
+        string PlaneHoriz { get; set; }
+        string PlaneVert { get; set; }
 
 
         void setAileron(double value);
@@ -32,6 +33,7 @@ namespace Ex1.Model
         void setRudder(double value);
         void setThrottle(double value);
 
+        string ErrorList { get; set; }
 
 
     }
