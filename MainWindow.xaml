@@ -6,13 +6,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ex1" xmlns:Views="clr-namespace:Ex1.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920">
+        Title="MainWindow" Height="480" Width="640">
 
     <Grid>
-        <Views:ServerDetails HorizontalAlignment="Left" VerticalAlignment="Top" Height="215" Width="1018"></Views:ServerDetails>
-        <Views:Map HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="782" Width="1048"></Views:Map>
-        <Views:FlightControls HorizontalAlignment="Right" VerticalAlignment="Bottom" Canvas.Left="1387" Canvas.Top="492" Height="501" Width="751"/>
-        <Views:Dashboard HorizontalAlignment="Right" VerticalAlignment="Top" Height="548" Width="751"></Views:Dashboard>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Viewbox>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="IP" TextAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="1" Text="Port" TextAlignment="Center"></TextBlock>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox BorderThickness="0"/>
+                        <TextBlock Text="." Grid.Column="1"/>
+                        <TextBox Grid.Column="2" BorderThickness="0"/>
+                        <TextBlock Text="." Grid.Column="3"/>
+                        <TextBox Grid.Column="4" BorderThickness="0"/>
+                        <TextBlock Text="." Grid.Column="5"/>
+                        <TextBox Grid.Column="6" BorderThickness="0"/>
+                    </Grid>
+                    <TextBox Grid.Row="1" Grid.Column="1" BorderThickness="0" TextAlignment="Center"/>
+                    <Button Grid.Column="2" BorderThickness="0" Background="Green">
+                        <TextBlock Text="Connect"/>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="2" BorderThickness="0" Background="Red">
+                        <TextBlock Text="Disconnect"/>
+                    </Button>
+                </Grid>
+            </Viewbox>
+            <Viewbox Grid.Row="1" Stretch="UniformToFill">
+                <Views:Map Height="415" Width="516"/>
+            </Viewbox>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Viewbox Stretch="UniformToFill">
+                <Views:Dashboard/>
+            </Viewbox>
+            <Viewbox Grid.Row="1" Stretch="UniformToFill">
+                <Views:FlightControls Grid.Row="1"/>
+            </Viewbox>
+        </Grid>
     </Grid>
 
 

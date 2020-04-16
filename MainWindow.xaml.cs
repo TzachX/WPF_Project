@@ -20,9 +20,6 @@ namespace Ex1
     /// </summary>
     public partial class MainWindow : Window
     {
-        int throttle;
-        int aileron;
-
         public MainWindow()
         {
             InitializeComponent();
