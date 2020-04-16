@@ -10,8 +10,8 @@
              >
     <Grid>
         <Views:Joystick Margin="230" x:Name="Joystick"
-                        Rudder="{Binding ElementName=FlyControl, Mode=OneWayToSource, Path=FC_Rudder}"
-                        Elevator="{Binding ElementName=FlyControl, Mode=OneWayToSource, Path=FC_Elevator}">
+                        Rudder="{Binding VM_Rudder}"
+                        Elevator="{Binding VM_Elevator}">
         </Views:Joystick>
         <TextBlock x:Name="RudderText" Height="50" Width="200" Text="←Rudder→" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="300,130,300,620" Background="Transparent"></TextBlock>
         <TextBlock x:Name="ElevatorText" Height="50" Text="←Elevator→" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="584,375,16,375" Background="Transparent" RenderTransformOrigin="0.5,0.5">
@@ -35,9 +35,9 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <Slider x:Name="thrSlider" Margin="230,670,230,112" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" ValueChanged="ThrottleSlider_ValueChanged"/>
-        <Slider x:Name="ailSlider" Margin="-87,391,547,391" Minimum="-1" Maximum="1" IsSnapToTickEnabled="True" Value="0" TickFrequency="0.1" RenderTransformOrigin="0.5,0.5"
-                ValueChanged="AileronSlider_ValueChanged">
+        <Slider x:Name="thrSlider" Margin="230,670,230,112" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" Value="{Binding VM_Throttle}"/>
+        <Slider x:Name="ailSlider" Margin="-87,391,547,391" Minimum="-1" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" RenderTransformOrigin="0.5,0.5"
+                Value="{Binding VM_Aileron}">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

@@ -13,6 +13,7 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -36,5 +37,6 @@
         <TextBlock x:Name="GIasaText" Grid.Row="3" Grid.Column="1" Text="{Binding ElementName=dashboardVals, Path=Speed, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" Background="Transparent" VerticalAlignment="Center"/>
         <TextBlock x:Name="IS_Txt" Grid.Row="3" Grid.Column="2" Text="Alt. Indicated Altitude" FontSize="10" TextAlignment="Center" FontWeight="Bold" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,21,0,10"/>
         <TextBlock x:Name="GIaaText" Grid.Row="3" Grid.Column="3" Text="{Binding ElementName=dashboardVals, Path=AltimAltitude, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" Background="Transparent" VerticalAlignment="Center"/>
+        <TextBlock x:Name="test" Grid.Row="4" Grid.Column="2" Text="TEST" FontSize="10" TextAlignment="Center" FontWeight="Bold" Background="Transparent" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>
