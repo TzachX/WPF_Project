@@ -1,12 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Ex1.Model
 {
-    class ModelTelnetClient : ItelnetClient
+    class ModelTelnetClient: ItelnetClient
     {
         //Client based on built-in tcpClient 
         private volatile TcpClient tcpField;
@@ -14,6 +15,7 @@ namespace Ex1.Model
         NetworkStream stream;
         //Stream Reader to read data from the server
         private StreamReader reader;
+        
         public ModelTelnetClient()
         {
             //Construction creates a new TCP Client
@@ -26,24 +28,28 @@ namespace Ex1.Model
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
-        public void connect(string ip, int port)
+        public async Task<bool> connect(string ip, int port)
         {
             //Connnection may fail, we would like to catch that and not crush!
             try
             {
-                //connecting through tcpclient
-                tcpField.Connect(ip, port);
-                //creating a Network Stream based on said connection
-                stream = tcpField.GetStream();
-                //DEBUG - DELETE ON SUBMISSION
-                Console.WriteLine("We Are IN!");
+
+                var nonSyncConnection = tcpField.ConnectAsync(ip, port);
+
+                var delayPrompt = Task.Delay(300);
+
+                var isComplete = await Task.WhenAny(new[] { delayPrompt, nonSyncConnection });
+
+                this.stream = tcpField.GetStream();
+
+                return isComplete == nonSyncConnection;
             }
 
             catch (Exception e)
             {
                 Console.WriteLine("Connection Error", e);
                 Console.WriteLine(e.ToString());
-
+                return false;
             }
 
 
@@ -98,6 +104,18 @@ namespace Ex1.Model
             }
 
         }
+
+
+        public bool checkConncetion()
+        {
+            if (tcpField != null)
+            {
+                return tcpField.Connected;
+            }
+            return false;
+        }
     }
+
+
 }
-}
+
