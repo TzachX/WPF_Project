@@ -21,14 +21,14 @@ namespace Ex1.Views
     public partial class Dashboard : UserControl
     {
         // Properties definition
-        public static readonly DependencyProperty headingDeg = DependencyProperty.Register("Elevator", typeof(double), typeof(Dashboard), null);
-        public static readonly DependencyProperty verSpeed = DependencyProperty.Register("Elevator", typeof(double), typeof(Dashboard), null);
-        public static readonly DependencyProperty groundSpeed = DependencyProperty.Register("Elevator", typeof(double), typeof(Dashboard), null);
-        public static readonly DependencyProperty speed = DependencyProperty.Register("Elevator", typeof(double), typeof(Dashboard), null);
-        public static readonly DependencyProperty altitude = DependencyProperty.Register("Elevator", typeof(double), typeof(Dashboard), null);
-        public static readonly DependencyProperty rollDeg = DependencyProperty.Register("Elevator", typeof(double), typeof(Dashboard), null);
-        public static readonly DependencyProperty pitchDeg = DependencyProperty.Register("Elevator", typeof(double), typeof(Dashboard), null);
-        public static readonly DependencyProperty altimAltitude = DependencyProperty.Register("Elevator", typeof(double), typeof(Dashboard), null);
+        public static readonly DependencyProperty headingDeg = DependencyProperty.Register("HeadingDegree", typeof(double), typeof(Dashboard), null);
+        public static readonly DependencyProperty verSpeed = DependencyProperty.Register("VerticalSpeed", typeof(double), typeof(Dashboard), null);
+        public static readonly DependencyProperty groundSpeed = DependencyProperty.Register("GroundSpeed", typeof(double), typeof(Dashboard), null);
+        public static readonly DependencyProperty speed = DependencyProperty.Register("Speed", typeof(double), typeof(Dashboard), null);
+        public static readonly DependencyProperty altitude = DependencyProperty.Register("Altitude", typeof(double), typeof(Dashboard), null);
+        public static readonly DependencyProperty rollDeg = DependencyProperty.Register("RollDegree", typeof(double), typeof(Dashboard), null);
+        public static readonly DependencyProperty pitchDeg = DependencyProperty.Register("PitchDegree", typeof(double), typeof(Dashboard), null);
+        public static readonly DependencyProperty altimAltitude = DependencyProperty.Register("AltimAltitude", typeof(double), typeof(Dashboard), null);
 
         // Getter + Setter for the headingDeg dependency property
         public double HeadingDegree
