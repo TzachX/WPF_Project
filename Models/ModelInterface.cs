@@ -24,9 +24,8 @@ namespace Ex1.Model
         string VerticalSpeed { get; set; }
 
 
-        string PlaneHoriz { get; set; }
-        string PlaneVert { get; set; }
-
+        string Latitude { get; set; }
+        string Longitude { get; set; }
 
         void setAileron(double value);
         void setElevator(double value);
