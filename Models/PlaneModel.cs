@@ -25,8 +25,10 @@ namespace Ex1.Model
         public string AltitudeIndicator = "ERR";
         public string airSpeed = "ERR"  ;
 
-        public string lan = "ERR";
-        public string lon = "ERR";
+        public string latitude = "32.002644";
+        public string longitude = "34.888781";
+        public string location = "32.002644, 34.888781";
+
 
         public string error;
         /// <summary>
@@ -138,12 +140,12 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the PlaneHoriz.
         /// </summary>
-        public string PlaneHoriz
+        public string Latitude
         {
-            get { return this.lan; }
+            get { return this.latitude; }
             set
             {
-                this.lan = value;
+                this.latitude = value;
                 this.NotifyPropertyChanged("Latitude");
             }
         }
@@ -151,15 +153,17 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the PlaneVert.
         /// </summary>
-        public string PlaneVert
+        public string Longitude
         {
-            get { return this.lon; }
+            get { return this.longitude; }
             set
             {
-                this.lon = value;
+                this.longitude = value;
                 this.NotifyPropertyChanged("Longtitude");
             }
         }
+
+  
 
         /// <summary>
         /// Gets or sets the Roll.
@@ -275,23 +279,26 @@ namespace Ex1.Model
                         client.write("get /position/latitude-deg\n");
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Latitude"); }
-                        this.lan= checkStr;
+                        this.latitude = checkStr;
 
                         client.write("get /position/longitude-deg\n");
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Longtitude"); }
-                        this.lon= checkStr;
+                        this.longitude = checkStr;
+
+                        Location = latitude + ", " + longitude;
 
                         mute.ReleaseMutex();
-
+                        Thread.Sleep(250);
 
                     }
 
                 }
 
-                catch
+                catch(ArgumentNullException)
                 {
                     ErrorList += "Client connection problem, please reconnect\n";
+                  
                 }
 
 
