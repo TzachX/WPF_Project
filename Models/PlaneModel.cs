@@ -282,6 +282,7 @@ namespace Ex1.Model
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("GPS altitude"); }
                         Altitude = checkStr;
+                        if (Convert.ToDouble(this.gpsAltFt) < 0) { getError("GPS altitude"); }
 
                         client.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
                         checkStr = client.read();
@@ -292,16 +293,22 @@ namespace Ex1.Model
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Altitude"); }
                         AltMeter = checkStr;
+                        if(Convert.ToDouble(this.gpsAltFt)<0) { getError("Altitude"); }
 
                         client.write("get /position/latitude-deg\n");
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Latitude"); }
                         Latitude = checkStr;
+                        if (Convert.ToDouble(this.latitude) < -90 || Convert.ToDouble(this.latitude) > 90) { getError("Latitude"); }
+
+
+
 
                         client.write("get /position/longitude-deg\n");
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Longtitude"); }
                         Longitude = checkStr;
+                        if (Convert.ToDouble(this.longitude) < -180 || Convert.ToDouble(this.latitude) > 180) { getError("Longtitude"); }
 
                         Location = latitude + "," + longitude;
 
@@ -387,7 +394,6 @@ namespace Ex1.Model
             {
                 this.location = value;
 
-                Console.WriteLine(this.location);
                 NotifyPropertyChanged("Location");
             }
 
