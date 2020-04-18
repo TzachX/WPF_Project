@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ex1.ViewModels
 {
-    class DashBoardViewModel
+    public class DashBoardViewModel:INotifyPropertyChanged
     {
         private IPlaneModel planeModel;
         public DashBoardViewModel(IPlaneModel model) { this.planeModel = model;
