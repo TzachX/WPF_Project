@@ -25,9 +25,9 @@ namespace Ex1.Model
         public string AltitudeIndicator = "ERR";
         public string airSpeed = "ERR";
 
-        public string latitude = "32.002644";
-        public string longitude = "34.888781";
-        public string location = "32.002644, 34.888781";
+        public string latitude = "10.002644";
+        public string longitude = "10.888781";
+        public string location = "10.002644,10.888781";
 
 
         public string error;
@@ -68,7 +68,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the AirSpeed.
         /// </summary>
-        public string AirSpeed      
+        public string AirSpeed
         {
             get
             {
@@ -216,7 +216,7 @@ namespace Ex1.Model
         {
             await client.connect(ip, port);
             stop = false;
-          isConnected=  client.checkConncetion();
+            isConnected = client.checkConncetion();
             Console.WriteLine(isConnected);
             return client.checkConncetion();
         }
@@ -282,7 +282,7 @@ namespace Ex1.Model
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("GPS altitude"); }
                         Altitude = checkStr;
-                        
+
                         client.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Pitch Degree"); }
@@ -303,12 +303,12 @@ namespace Ex1.Model
                         if (checkStr == "ERR") { getError("Longtitude"); }
                         Longitude = checkStr;
 
-                        location = latitude + ", " + longitude;
+                        Location = latitude + "," + longitude;
 
 
 
 
-                        
+
                         mute.ReleaseMutex();
                         Thread.Sleep(250);
 
@@ -379,6 +379,19 @@ namespace Ex1.Model
         }
 
 
+        public string Location{
+
+            get { return this.location; }
+
+            set
+            {
+                this.location = value;
+
+                Console.WriteLine(this.location);
+                NotifyPropertyChanged("Location");
+            }
+
+            }
 
 
 
@@ -395,6 +408,7 @@ namespace Ex1.Model
         public void getError(string propName)
         {
             error += "an error has occured while fetching data on " + propName + " property \n";
+            ErrorList = error;
         }
 
 
