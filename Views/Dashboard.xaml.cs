@@ -29,7 +29,7 @@ namespace Ex1.Views
         {
 
             InitializeComponent();
-            vm = new DashBoardViewModel(new PlaneModel(new ModelTelnetClient()));
+            vm = (Application.Current as App).dashBoardVM;
             DataContext = vm;
         }
 
