@@ -1,4 +1,5 @@
-﻿using Ex1.Model;
+using Ex1.Model;
+using Ex1.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,7 +23,7 @@ namespace Ex1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ModelTelnetClient telnetClient;
+        private IPlaneModel model;
         public static readonly DependencyProperty firstIPSeg = DependencyProperty.Register("FirstIPSeg", typeof(string), typeof(MainWindow), new PropertyMetadata((ConfigurationManager.AppSettings["ip"].ToString().Split('.'))[0]));
         public static readonly DependencyProperty secondIPSeg = DependencyProperty.Register("SecondIPSeg", typeof(string), typeof(MainWindow), new PropertyMetadata((ConfigurationManager.AppSettings["ip"].ToString().Split('.'))[1]));
         public static readonly DependencyProperty thirdIPSeg = DependencyProperty.Register("ThirdIPSeg", typeof(string), typeof(MainWindow), new PropertyMetadata((ConfigurationManager.AppSettings["ip"].ToString().Split('.'))[2]));
@@ -59,17 +60,26 @@ namespace Ex1
             set { SetValue(port, value); }
         }
 
+
+   
         public MainWindow()
         {
             InitializeComponent();
-            telnetClient = new ModelTelnetClient();
+          
         }
 
         private void Connect_OnClick(object sender, RoutedEventArgs e)
         {
             string ip = FirstIPSeg + "." + SecondIPSeg + "." + ThirdIPSeg + "." + FourthIPSeg;
             int portNum = Int32.Parse(Port);
-            telnetClient.connect(ip, portNum);
+            (Application.Current as App).connectionVM.Connect(ip, portNum);
+
+
+        }
+
+        public void Disconnect_OnClick(object sender, RoutedEventArgs e)
+        {
+            (Application.Current as App).connectionVM.disconnect();
         }
 
         private void Check_IfValidSeg(object sender, TextCompositionEventArgs e)
@@ -78,7 +88,7 @@ namespace Ex1
             if (Int32.TryParse(((TextBox)sender).Text + e.Text, out num))
             {
                 if (num <= 255 && num >= 0) { e.Handled = false; }
-                else 
+                else
                 {
                     if (num > 255) { ((TextBox)sender).Text = "255"; }
                     e.Handled = true;
