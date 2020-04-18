@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ex1.ViewModels
 {
-    class MapViewModel
+    public class MapViewModel:INotifyPropertyChanged
     {
         private IPlaneModel planeModel;
         public MapViewModel(IPlaneModel model)
@@ -31,8 +31,8 @@ namespace Ex1.ViewModels
             }
         }
 
-        public double VM_Location { get { return planeModel.AirSpeed; } }
-        public double VM_Longtitude { get { return planeModel.PlaneVert; } }
-        public double VM_Latitude { get { return planeModel.PlaneHoriz; } }
+        public string VM_Location { get { return planeModel.Location; } }
+        public string VM_Longitude { get { return planeModel.Longitude; } }
+        public string VM_Latitude { get { return planeModel.Latitude; } }
     }
 }

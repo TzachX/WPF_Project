@@ -24,8 +24,10 @@ namespace FlightSimulator.Views
         // Properties definition
         private Point LastPos = new Point();
         private readonly Storyboard centerKnob;
-        public static readonly DependencyProperty elevator = DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick), null);
-        public static readonly DependencyProperty rudder = DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick), null);
+        public static readonly DependencyProperty elevator =
+            DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick), null);
+        public static readonly DependencyProperty rudder =
+            DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick), null);
         const int MAX_JOYSTICK_VALUE = 85;
 
         // Getter + Setter for the rudder dependency property
@@ -41,9 +43,9 @@ namespace FlightSimulator.Views
             get { return Convert.ToDouble(GetValue(elevator)); }
             set { SetValue(elevator, value); }
         }
-        
+
         // Reset the actual knob position when the animation ends
-        private void centerKnob_Completed(object o, EventArgs e) 
+        private void centerKnob_Completed(object o, EventArgs e)
         {
             knobPosition.X = Rudder = 0;
             knobPosition.Y = Elevator = 0;
@@ -68,7 +70,7 @@ namespace FlightSimulator.Views
                     double angle = Math.Atan2(0 - yVal, xVal - 0);
                     xVal = Math.Cos(angle) * (Base.Width / 4);
                     yVal = Math.Sin(-angle) * (Base.Width / 4);
-                    
+
                 }
 
                 // Update values
@@ -97,6 +99,7 @@ namespace FlightSimulator.Views
         }
 
         // C-tor
+        
         public Joystick()
         {
             InitializeComponent();

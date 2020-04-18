@@ -36,7 +36,7 @@
             <TextBox FontFamily="/Fonts/#Autobus" x:Name="IS_Text" Grid.Row="3" Text="Indicated Speed" TextAlignment="Left" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,21,0,10" Foreground="#FF26267E" FontSize="20"/>
             <TextBox FontFamily="/Fonts/#Autobus" x:Name="GIasaText" Grid.Row="3" Grid.Column="1" Text="{Binding VM_GroundSpeed, Mode=OneWay}" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" FontSize="10"/>
             <TextBox FontFamily="/Fonts/#Autobus" x:Name="IS_Txt" Grid.Row="3" Grid.Column="2" Text="Altimeter Altitude" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,21,0,10" Foreground="#FF26267E" FontSize="20"/>
-            <TextBox FontFamily="/Fonts/#Autobus" x:Name="GIaaText" Grid.Row="3" Grid.Column="3" Text="{Binding VM_Altmeter, Mode=OneWay}" TextAlignment="Left" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" FontSize="10"/>
+            <TextBox FontFamily="/Fonts/#Autobus" x:Name="GIaaText" Grid.Row="3" Grid.Column="3" Text="{Binding VM_AltMeter, Mode=OneWay}" TextAlignment="Left" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" FontSize="10"/>
 
         </Grid>
     </Viewbox>

@@ -77,8 +77,8 @@
     </UserControl.Resources>
     <Grid>
         <Views:Joystick Margin="230" x:Name="Joystick"
-                        Rudder="{Binding VM_Rudder}"
-                        Elevator="{Binding VM_Elevator}">
+                        Rudder="{Binding VM_Rudder, Mode=OneWayToSource}"
+                        Elevator="{Binding VM_Elevator, Mode=OneWayToSource}">
         </Views:Joystick>
         <TextBlock FontFamily="/Fonts/#Autobus" x:Name="RudderText" Height="50" Width="200" Text="←Rudder→" FontSize="48" TextAlignment="Center" FontWeight="Bold" Margin="300,130,300,620" Background="Transparent" Foreground="#FF26267E"></TextBlock>
         <TextBlock FontFamily="/Fonts/#Autobus" x:Name="ElevatorText" Height="50" Text="←Elevator→" FontSize="48" TextAlignment="Center" FontWeight="Bold" Margin="584,375,16,375" Background="Transparent" RenderTransformOrigin="0.5,0.5" Foreground="#FF26267E">

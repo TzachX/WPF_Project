@@ -33,6 +33,7 @@ namespace Ex1.ViewModels
    
         public void disconnect()
         {
+           
             this.planeModel.disconnect();
         }
 
@@ -40,13 +41,28 @@ namespace Ex1.ViewModels
         public async void Connect(string ip, int port)
         {
             _ = await planeModel.connect(ip, port);
+
             if (planeModel.checkConnection)
             {
                 planeModel.start();
+            }
 
+            else
+            {
+                this.planeModel.ErrorList += "Connection Failed";
             }
 
 
+        }
+
+        public void start()
+        {
+            planeModel.start();
+        }
+
+        public bool isUp()
+        {
+            return planeModel.checkConnection;
         }
     
     }

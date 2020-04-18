@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿ 
 <Window x:Class="Ex1.MainWindow"
         x:Name="MainWin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -77,7 +77,7 @@
                                 </Style>
                             </TextBox.Resources>
                         </TextBox>
-                        </Viewbox>
+                    </Viewbox>
                     <TextBlock Text="•" Grid.Column="5" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                     <Viewbox Stretch="Uniform" Grid.Column="6">
                         <TextBox x:Name="IP_Fourth" Width="26" TextAlignment="Center" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="Check_IfValidSeg" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=FourthIPSeg}">
@@ -140,7 +140,7 @@
                     </Button>
                 </Viewbox>
                 <Viewbox Grid.Column="2">
-                    <Button BorderThickness="0" Click="Connect_OnClick" >
+                    <Button BorderThickness="0" Click="Disconnect_OnClick" >
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="Transparent"/>
@@ -195,7 +195,7 @@
                 </Viewbox>
             </Grid>
         </Grid>
-        
+
         <!-- Lower Bar -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

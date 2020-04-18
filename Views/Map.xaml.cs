@@ -1,6 +1,4 @@
-﻿using Ex1.Model;
-using Ex1.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +20,10 @@ namespace Ex1.Views
     /// </summary>
     public partial class Map : UserControl
     {
-        private MapViewModel map;
         public Map()
         {
             InitializeComponent();
-            map = new MapViewModel(new PlaneModel(new ModelTelnetClient()));
-            DataContext = map;
+            DataContext = (Application.Current as App).mapVM;
         }
     }
 }

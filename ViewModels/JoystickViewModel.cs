@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ex1.ViewModels
 {
-    class JoystickViewModel
+    public class JoystickViewModel
     {
         // Properties Section
         private IPlaneModel planeModel;

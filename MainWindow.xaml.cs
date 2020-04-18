@@ -1,4 +1,4 @@
-using Ex1.Model;
+﻿using Ex1.Model;
 using Ex1.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -61,11 +61,11 @@ namespace Ex1
         }
 
 
-   
+
         public MainWindow()
         {
             InitializeComponent();
-          
+
         }
 
         private void Connect_OnClick(object sender, RoutedEventArgs e)
