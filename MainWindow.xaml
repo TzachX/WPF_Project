@@ -10,70 +10,207 @@
         Title="MainWindow" Height="480" Width="640">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <!-- Top Bar-->
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
-            </Grid.RowDefinitions>
-            <Viewbox>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Logo Section -->
+            <Viewbox x:Name="Logo" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Text="Logo"/>
+            </Viewbox>
+
+            <!-- IP and Port Section -->
+            <Grid x:Name="ServerDetails" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+                <Viewbox x:Name="IP" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <TextBlock Text="IP"/>
+                </Viewbox>
+                <Grid Grid.Column="1" HorizontalAlignment="Center" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="20*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="IP" TextAlignment="Center"></TextBlock>
-                    <TextBlock Grid.Row="1" Text="Port" TextAlignment="Center"></TextBlock>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="IP_First" PreviewTextInput="Check_IfValidSeg" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=FirstIPSeg}" BorderThickness="0"/>
-                        <TextBlock Text="." Grid.Column="1"/>
-                        <TextBox x:Name="IP_Second" PreviewTextInput="Check_IfValidSeg" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=SecondIPSeg}" Grid.Column="2" BorderThickness="0"/>
-                        <TextBlock Text="." Grid.Column="3"/>
-                        <TextBox x:Name="IP_Third" PreviewTextInput="Check_IfValidSeg" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=ThirdIPSeg}" Grid.Column="4" BorderThickness="0"/>
-                        <TextBlock Text="." Grid.Column="5"/>
-                        <TextBox x:Name="IP_Fourth" PreviewTextInput="Check_IfValidSeg" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=FourthIPSeg}" Grid.Column="6" BorderThickness="0"/>
-                    </Grid>
-                    <TextBox Grid.Row="1" PreviewTextInput="Check_IfValidPort" Grid.Column="1" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=Port}" BorderThickness="0" TextAlignment="Center"/>
-                    <Button Grid.Column="2" BorderThickness="0" Background="Green" Click="Connect_OnClick" >
-                        <TextBlock Text="Connect"/>
-                    </Button>
-                    <Button Grid.Row="1" Grid.Column="2" BorderThickness="0" Background="Red">
-                        <TextBlock Text="Disconnect"/>
-                    </Button>
+                    <Viewbox Stretch="Uniform">
+                        <TextBox x:Name="IP_First" Width="26" TextAlignment="Center" TextWrapping="Wrap" AllowDrop="False" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="Check_IfValidSeg" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=FirstIPSeg}">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </Viewbox>
+                    <TextBlock Text="•" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="16"/>
+                    <Viewbox Stretch="Uniform" Grid.Column="2">
+                        <TextBox x:Name="IP_Second" Width="26" TextAlignment="Center" TextWrapping="NoWrap" VerticalAlignment="Center" PreviewTextInput="Check_IfValidSeg" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=SecondIPSeg}" HorizontalAlignment="Center">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </Viewbox>
+                    <TextBlock Text="•" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                    <Viewbox Stretch="Uniform" Grid.Column="4">
+                        <TextBox x:Name="IP_Third" Width="26" TextAlignment="Center" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="Check_IfValidSeg" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=ThirdIPSeg}">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        </Viewbox>
+                    <TextBlock Text="•" Grid.Column="5" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                    <Viewbox Stretch="Uniform" Grid.Column="6">
+                        <TextBox x:Name="IP_Fourth" Width="26" TextAlignment="Center" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Center" PreviewTextInput="Check_IfValidSeg" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=FourthIPSeg}">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </Viewbox>
                 </Grid>
-            </Viewbox>
-            <Viewbox Grid.Row="1" Stretch="UniformToFill">
-                <Views:Map Height="415" Width="516"/>
-            </Viewbox>
+                <Viewbox x:Name="PortBox" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <TextBlock Text="Port"/>
+                </Viewbox>
+                <Viewbox Grid.Column="3" HorizontalAlignment="Left">
+                    <TextBox PreviewTextInput="Check_IfValidPort" Text="{Binding Mode=TwoWay, ElementName=MainWin, Path=Port}"  Width="40" TextAlignment="Center" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Viewbox>
+            </Grid>
+            <Grid Grid.Column="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Viewbox>
+                    <Button BorderThickness="0" Click="Connect_OnClick" >
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter x:Name="PART_Content"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"></ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="GreenYellow"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Image Source="Icons/Button-Ok-icon.png"/>
+                        <Button.ToolTip>
+                            <TextBlock Text="Connect"/>
+                        </Button.ToolTip>
+                    </Button>
+                </Viewbox>
+                <Viewbox Grid.Column="2">
+                    <Button BorderThickness="0" Click="Connect_OnClick" >
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter x:Name="PART_Content"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"></ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Red"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Image Source="Icons/Button-Delete-icon.png"/>
+                        <Button.ToolTip>
+                            <TextBlock Text="Disconnect"/>
+                        </Button.ToolTip>
+                    </Button>
+                </Viewbox>
+            </Grid>
         </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Viewbox Stretch="Uniform">
-                <Views:Dashboard/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Stretch="Fill">
+                <Views:Map/>
             </Viewbox>
-            <Viewbox Grid.Row="1" Stretch="Uniform">
-                <Views:FlightControls Grid.Row="1"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Viewbox Stretch="Uniform">
+                    <Views:Dashboard/>
+                </Viewbox>
+                <Viewbox Grid.Row="1" Stretch="Uniform">
+                    <Views:FlightControls/>
+                </Viewbox>
+            </Grid>
+        </Grid>
+        
+        <!-- Lower Bar -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox>
+                <Border Margin="5" Padding="5" BorderThickness="1" BorderBrush="Red" Background="AntiqueWhite" CornerRadius="10">
+                    <TextBlock Width="1000" Text="Lorem ipsum"/>
+                </Border>
+            </Viewbox>
+            <Viewbox Grid.Column="1" Stretch="Fill">
+                <Button>
+                    <Image Source="Icons/Button-Settings-icon.png"/>
+                </Button>
             </Viewbox>
         </Grid>
     </Grid>
