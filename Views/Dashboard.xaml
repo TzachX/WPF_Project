@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="IHD_Text"  Text="Indicated Heading Degree" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Margin="0,22,0,10" Height="25"/>
+                <TextBox x:Name="IHD_Text"  Text="Indicated Heading Degree" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Margin="0,22,0,10" Height="25"/>
             <TextBox x:Name="_Txt"  Grid.Column="1" Text="{Binding VM_Heading, Mode=OneWay }" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
             <TextBox x:Name="_Text"  Grid.Column="2" Text="Indicated Altitude" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Height="25" Margin="0,22,0,10"/>
             <TextBox x:Name="_asdt"  Grid.Column="3" Text="{Binding VM_Altitude, Mode=OneWay}" FontSize="10" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"/>
