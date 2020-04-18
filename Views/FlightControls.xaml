@@ -8,13 +8,80 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800"
              >
+    <UserControl.Resources>
+        <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="false"/>
+            <Setter Property="Height" Value="18"/>
+            <Setter Property="Width" Value="18"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Ellipse  Stroke="Black"
+                          StrokeThickness="1"
+                          Name="Ellipse" 
+                          Fill="#FF26267E" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Ellipse" Property="Fill" Value="#FF3C3C97"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Ellipse" Property="Fill" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Slider" x:Key="AppSliderStyle">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" Name="row" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" Name="column" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border Name="PART_Border"
+                           BorderBrush="Black" BorderThickness="1"
+                           Padding="2"
+                          Grid.Row="1" Grid.Column="1"
+                           Width="{TemplateBinding Width}"
+                           Height="{TemplateBinding Height}"
+                           Background="Gray"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Center" />
+                            <Track Name="PART_Track"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center"
+                              Grid.Row="1" Grid.Column="1"
+                              Width="{TemplateBinding Width}"
+                              Height="{TemplateBinding Height}">
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource SliderThumbStyle}" />
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Views:Joystick Margin="230" x:Name="Joystick"
                         Rudder="{Binding VM_Rudder}"
                         Elevator="{Binding VM_Elevator}">
         </Views:Joystick>
-        <TextBlock x:Name="RudderText" Height="50" Width="200" Text="←Rudder→" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="300,130,300,620" Background="Transparent"></TextBlock>
-        <TextBlock x:Name="ElevatorText" Height="50" Text="←Elevator→" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="584,375,16,375" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+        <TextBlock FontFamily="/Fonts/#Autobus" x:Name="RudderText" Height="50" Width="200" Text="←Rudder→" FontSize="48" TextAlignment="Center" FontWeight="Bold" Margin="300,130,300,620" Background="Transparent" Foreground="#FF26267E"></TextBlock>
+        <TextBlock FontFamily="/Fonts/#Autobus" x:Name="ElevatorText" Height="50" Text="←Elevator→" FontSize="48" TextAlignment="Center" FontWeight="Bold" Margin="584,375,16,375" Background="Transparent" RenderTransformOrigin="0.5,0.5" Foreground="#FF26267E">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -24,8 +91,8 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <TextBlock x:Name="ThrottleText" Height="50" Width="200" Text="Throttle" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="300,620,300,130" Background="Transparent"/>
-        <TextBlock x:Name="AileronText" Height="50" Text="Aileron" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="16.5,375,583,375" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+        <TextBlock FontFamily="/Fonts/#Autobus" x:Name="ThrottleText" Height="50" Width="200" Text="Throttle" FontSize="48" TextAlignment="Center" FontWeight="Bold" Margin="300,620,300,130" Background="Transparent" Foreground="#FF26267E"/>
+        <TextBlock FontFamily="/Fonts/#Autobus" x:Name="AileronText" Height="50" Text="Aileron" FontSize="48" TextAlignment="Center" FontWeight="Bold" Margin="16.5,375,583,375" Background="Transparent" RenderTransformOrigin="0.5,0.5" Foreground="#FF26267E">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -35,9 +102,9 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <Slider x:Name="thrSlider" Margin="230,670,230,112" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" Value="{Binding VM_Throttle}"/>
-        <Slider x:Name="ailSlider" Margin="-87,391,547,391" Minimum="-1" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" RenderTransformOrigin="0.5,0.5"
-                Value="{Binding VM_Aileron}">
+        <Slider x:Name="thrSlider" Margin="230,692,230,90" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" Value="{Binding VM_Throttle}" Style="{StaticResource AppSliderStyle}"/>
+        <Slider x:Name="ailSlider" Margin="-109,391,569,391" Minimum="-1" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" RenderTransformOrigin="0.5,0.5"
+                Value="{Binding VM_Aileron}" Style="{StaticResource AppSliderStyle}">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -47,9 +114,9 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <TextBlock x:Name="ThrottleValueText" Height="50" Text="{Binding ElementName=thrSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="350,570,350,180" Background="Transparent"/>
-        <TextBlock x:Name="RudderValueText" Height="50" FontSize="36"  Text="{Binding Path=Rudder, Mode=OneWay, ElementName=Joystick}" TextAlignment="Center" FontWeight="Bold" Margin="350,180,350,570" Background="Transparent"/>
-        <TextBlock x:Name="AileronValueText" Height="50" Text="{Binding ElementName=ailSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="142,375,570,375" Background="Transparent"/>
-        <TextBlock x:Name="ElevatorValueText" Height="50" Text="{Binding ElementName=Joystick, Mode=OneWay, Path=Elevator}" FontSize="36" TextAlignment="Center" FontWeight="Bold" Margin="570,375,142,375" Background="Transparent"/>
+        <TextBlock FontFamily="/Fonts/#Autobus" x:Name="ThrottleValueText" Height="50" Text="{Binding ElementName=thrSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="48" TextAlignment="Center" FontWeight="Bold" Margin="350,570,350,180" Background="Transparent" Foreground="#FF26267E"/>
+        <TextBlock FontFamily="/Fonts/#Autobus" x:Name="RudderValueText" Height="50" FontSize="48"  Text="{Binding Path=Rudder, Mode=OneWay, ElementName=Joystick}" TextAlignment="Center" FontWeight="Bold" Margin="350,180,350,570" Background="Transparent" Foreground="#FF26267E"/>
+        <TextBlock FontFamily="/Fonts/#Autobus" x:Name="AileronValueText" Height="50" Text="{Binding ElementName=ailSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="48" TextAlignment="Center" FontWeight="Bold" Margin="142,375,570,375" Background="Transparent" Foreground="#FF26267E"/>
+        <TextBlock FontFamily="/Fonts/#Autobus" x:Name="ElevatorValueText" Height="50" Text="{Binding ElementName=Joystick, Mode=OneWay, Path=Elevator}" FontSize="48" TextAlignment="Center" FontWeight="Bold" Margin="570,375,142,375" Background="Transparent" Foreground="#FF26267E"/>
     </Grid>
 </UserControl>

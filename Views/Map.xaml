@@ -12,7 +12,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <m:Map CredentialsProvider="XvwTiCfhNjBA3vrt67uR~azJw14Ww-I2hdXQDnT5__g~AuBuA9JJnmfnZNgwqse-LDzWljY2zbLY2tp8Bsl0WB7LuNzr4urx_hlwdgKDO-Pf" Center="0,10,0.0000" Mode="Aerial" ZoomLevel="0.85">
-            <m:Pushpin Background="OrangeRed" m:Location="{Binding VM_Location, Mode=OneWay}"/>
+            <m:Pushpin Background="#FF26267E" m:Location="{Binding VM_Location, Mode=OneWay}"/>
         </m:Map>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -21,10 +21,10 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Longtitude" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16"/>
-            <TextBlock Grid.Column="1" Text="{Binding VM_Longtitude, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
-            <TextBlock Grid.Column="2" Text="Latitude" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16"/>
-            <TextBlock Grid.Column="3" Text="{Binding VM_Latitude, Mode=OneWay}" HorizontalAlignment="left" VerticalAlignment="Center" FontSize="16"/>
+            <TextBlock FontFamily="/Fonts/#Autobus" Text="Longtitude" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="#FF26267E"/>
+            <TextBlock FontFamily="/Fonts/#Autobus" Margin="10" Grid.Column="1" Text="{Binding VM_Longtitude, Mode=OneWay}" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Foreground="#FF26267E"/>
+            <TextBlock FontFamily="/Fonts/#Autobus" Grid.Column="2" Text="Latitude" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="#FF26267E"/>
+            <TextBlock FontFamily="/Fonts/#Autobus" Margin="10" Grid.Column="3" Text="{Binding VM_Latitude, Mode=OneWay}" TextAlignment="Left" HorizontalAlignment="left" VerticalAlignment="Center" FontSize="16" Foreground="#FF26267E"/>
         </Grid>
     </Grid>
 </UserControl>
