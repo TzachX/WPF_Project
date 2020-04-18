@@ -5,8 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:local="clr-namespace:Ex1.Views"
-             mc:Ignorable="d" Height="500" Width="520">
+             mc:Ignorable="d" Height="500" Width="470">
     <Grid>
-        <m:Map CredentialsProvider="XvwTiCfhNjBA3vrt67uR~azJw14Ww-I2hdXQDnT5__g~AuBuA9JJnmfnZNgwqse-LDzWljY2zbLY2tp8Bsl0WB7LuNzr4urx_hlwdgKDO-Pf" Center="0,10,0.0000" Mode="Road"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <m:Map CredentialsProvider="XvwTiCfhNjBA3vrt67uR~azJw14Ww-I2hdXQDnT5__g~AuBuA9JJnmfnZNgwqse-LDzWljY2zbLY2tp8Bsl0WB7LuNzr4urx_hlwdgKDO-Pf" Center="0,10,0.0000" Mode="Aerial" ZoomLevel="0.85">
+            <m:Pushpin Background="OrangeRed" m:Location="{Binding VM_Location, Mode=OneWay}"/>
+        </m:Map>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Longtitude" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16"/>
+            <TextBlock Grid.Column="1" Text="{Binding VM_Longtitude, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
+            <TextBlock Grid.Column="2" Text="Latitude" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16"/>
+            <TextBlock Grid.Column="3" Text="{Binding VM_Latitude, Mode=OneWay}" HorizontalAlignment="left" VerticalAlignment="Center" FontSize="16"/>
+        </Grid>
     </Grid>
 </UserControl>
