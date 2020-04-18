@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ex1.Model
 {
-    class ModelTelnetClient: ItelnetClient
+    public class ModelTelnetClient : ItelnetClient
     {
         //Client based on built-in tcpClient 
         private volatile TcpClient tcpField;
@@ -15,7 +15,9 @@ namespace Ex1.Model
         NetworkStream stream;
         //Stream Reader to read data from the server
         private StreamReader reader;
-        
+
+        int timeout = 10000;
+
         public ModelTelnetClient()
         {
             //Construction creates a new TCP Client
@@ -33,7 +35,6 @@ namespace Ex1.Model
             //Connnection may fail, we would like to catch that and not crush!
             try
             {
-
                 var nonSyncConnection = tcpField.ConnectAsync(ip, port);
 
                 var delayPrompt = Task.Delay(300);
@@ -41,9 +42,11 @@ namespace Ex1.Model
                 var isComplete = await Task.WhenAny(new[] { delayPrompt, nonSyncConnection });
 
                 this.stream = tcpField.GetStream();
+                tcpField.ReceiveTimeout=timeout;
 
                 return isComplete == nonSyncConnection;
             }
+
 
             catch (Exception e)
             {
@@ -77,6 +80,15 @@ namespace Ex1.Model
 
 
             }
+
+
+
+            catch (IOException IOe)
+            {
+                Console.WriteLine(IOe.ToString());
+                return null;
+            }
+
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
@@ -118,4 +130,3 @@ namespace Ex1.Model
 
 
 }
-
