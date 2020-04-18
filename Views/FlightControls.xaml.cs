@@ -1,4 +1,4 @@
-﻿using Ex1.Model;
+using Ex1.Model;
 using Ex1.ViewModels;
 using FlightSimulator.Views;
 using System;
@@ -26,13 +26,13 @@ namespace Ex1.Views
     /// </summary>
     public partial class FlightControls : UserControl
     {
-        JoystickViewModel joystickVM;
-        
+        JoystickViewModel vm;
+
         public FlightControls()
         {
             InitializeComponent();
-            joystickVM = new JoystickViewModel(new PlaneModel(new ModelTelnetClient()));
-            DataContext = joystickVM;
+            vm = (Application.Current as App).joystickVM;
+            DataContext = vm;
         }
     }
 }
