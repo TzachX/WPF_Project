@@ -25,9 +25,9 @@ namespace Ex1.Model
         public string AltitudeIndicator = "ERR";
         public string airSpeed = "ERR";
 
-        public string latitude = "32.002644";
-        public string longitude = "34.888781";
-        public string location = "32.002644, 34.888781";
+        public string latitude = "10.002644";
+        public string longitude = "10.888781";
+        public string location = "10.002644,10.888781";
 
 
         public string error;
@@ -68,7 +68,7 @@ namespace Ex1.Model
         /// <summary>
         /// Gets or sets the AirSpeed.
         /// </summary>
-        public string AirSpeed      
+        public string AirSpeed
         {
             get
             {
@@ -188,7 +188,10 @@ namespace Ex1.Model
             }
         }
 
-
+         public void reset()
+        {
+            this.client = new ModelTelnetClient();
+        }
         /// <summary>
         /// Gets or sets the VerticalSpeed.
         /// </summary>
@@ -204,7 +207,8 @@ namespace Ex1.Model
 
         public bool checkConnection
         {
-            get { return this.client.checkConncetion(); }
+            get { 
+                return this.client.checkConncetion(); }
         }
 
         /// <summary>
@@ -216,7 +220,7 @@ namespace Ex1.Model
         {
             await client.connect(ip, port);
             stop = false;
-          isConnected=  client.checkConncetion();
+            isConnected = client.checkConncetion();
             Console.WriteLine(isConnected);
             return client.checkConncetion();
         }
@@ -226,12 +230,13 @@ namespace Ex1.Model
         /// </summary>
         public void disconnect()
         {
-            if (client.checkConncetion())
-            {
+            
                 client.disconnect();
                 stop = true;
+                //reset();
+
             }
-        }
+        
 
         /// <summary>
         /// The start.
@@ -248,7 +253,7 @@ namespace Ex1.Model
 
                 try
                 {
-                    while (!stop)
+                    while (!stop && checkConnection)
                     {
                         mute.WaitOne();
 
@@ -282,7 +287,7 @@ namespace Ex1.Model
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("GPS altitude"); }
                         Altitude = checkStr;
-                        
+
                         client.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Pitch Degree"); }
@@ -292,23 +297,29 @@ namespace Ex1.Model
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Altitude"); }
                         AltMeter = checkStr;
+                        if(Convert.ToDouble(this.gpsAltFt)<0) { getError("Altitude"); }
 
                         client.write("get /position/latitude-deg\n");
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Latitude"); }
                         Latitude = checkStr;
+                        if (Convert.ToDouble(this.latitude) < -90 || Convert.ToDouble(this.latitude) > 90) { getError("Latitude"); }
+
+
+
 
                         client.write("get /position/longitude-deg\n");
                         checkStr = client.read();
                         if (checkStr == "ERR") { getError("Longtitude"); }
                         Longitude = checkStr;
+                        if (Convert.ToDouble(this.longitude) < -180 || Convert.ToDouble(this.latitude) > 180) { getError("Longtitude"); }
 
-                        location = latitude + ", " + longitude;
+                        Location = latitude + "," + longitude;
 
 
 
 
-                        
+
                         mute.ReleaseMutex();
                         Thread.Sleep(250);
 
@@ -319,6 +330,7 @@ namespace Ex1.Model
                 catch (ArgumentNullException)
                 {
                     ErrorList += "Client connection problem, please reconnect\n";
+                    stop = true;
 
                 }
 
@@ -329,41 +341,53 @@ namespace Ex1.Model
         /// <summary>
         /// Sets the Rudder.
         /// </summary>
-        public void setRudder(double value)
+        public async void setRudder(double value)
         {
-            string command = "set /controls/flight/rudder " + value + "\n";
-            this.DataSet(command);
+            if (checkConnection)
+            {
+                string command = "set /controls/flight/rudder " + value + "\n";
+                await Task.Run(() => DataSet(command));
+            }
 
         }
 
         /// <summary>
         /// Sets the Throttle.
         /// </summary>
-        public void setThrottle(double value)
+        public async void setThrottle(double value)
         {
-            string command = "set /controls/engines/current-engine/throttle " + value + "\n";
-            this.DataSet(command);
+
+            if (checkConnection)
+            {
+                string command = "set /controls/engines/current-engine/throttle " + value + "\n";
+                await Task.Run(() => DataSet(command));
+            }
 
         }
         /// <summary>
         /// Sets the Elevator.
         /// </summary>
-        public void setElevator(double value)
+        public async void setElevator(double value)
         {
-            string command = "set /controls/flight/elevator " + value + "\n";
-            this.DataSet(command);
+            if (checkConnection)
+            {
 
+                string command = "set /controls/flight/elevator " + value + "\n";
+                await Task.Run(() => DataSet(command));
 
+            }
 
         }
 
 
-        public void setAileron(double value)
+        public async void setAileron(double value)
         {
+            if (checkConnection)
+            {
 
-            string command = "set /controls/flight/aileron " + value + "\n";
-            this.DataSet(command);
-
+                string command = "set /controls/flight/aileron " + value + "\n";
+                await Task.Run(() => DataSet(command));
+            }
 
         }
 
@@ -379,6 +403,18 @@ namespace Ex1.Model
         }
 
 
+        public string Location{
+
+            get { return this.location; }
+
+            set
+            {
+                this.location = value;
+
+                NotifyPropertyChanged("Location");
+            }
+
+            }
 
 
 
@@ -395,6 +431,7 @@ namespace Ex1.Model
         public void getError(string propName)
         {
             error += "an error has occured while fetching data on " + propName + " property \n";
+            ErrorList = error;
         }
 
 
