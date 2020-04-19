@@ -4,10 +4,12 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+
 
 namespace Ex1.Model
 {
-    class ModelTelnetClient: ItelnetClient
+    public class ModelTelnetClient : ItelnetClient
     {
         //Client based on built-in tcpClient 
         private volatile TcpClient tcpField;
@@ -15,7 +17,12 @@ namespace Ex1.Model
         NetworkStream stream;
         //Stream Reader to read data from the server
         private StreamReader reader;
-        
+
+        int timeout = 10000;
+
+
+
+
         public ModelTelnetClient()
         {
             //Construction creates a new TCP Client
@@ -33,7 +40,6 @@ namespace Ex1.Model
             //Connnection may fail, we would like to catch that and not crush!
             try
             {
-
                 var nonSyncConnection = tcpField.ConnectAsync(ip, port);
 
                 var delayPrompt = Task.Delay(300);
@@ -41,13 +47,21 @@ namespace Ex1.Model
                 var isComplete = await Task.WhenAny(new[] { delayPrompt, nonSyncConnection });
 
                 this.stream = tcpField.GetStream();
+                tcpField.ReceiveTimeout = timeout;
 
                 return isComplete == nonSyncConnection;
             }
 
+            catch (IOException Ie)
+            {
+                (Application.Current as App).model.ErrorList += "Client Timed out \n";
+                return false;
+            }
+
+
             catch (Exception e)
             {
-                Console.WriteLine("Connection Error", e);
+                (Application.Current as App).model.ErrorList += "Conncetion Failed\n";
                 Console.WriteLine(e.ToString());
                 return false;
             }
@@ -58,7 +72,9 @@ namespace Ex1.Model
 
         public void disconnect()
         {
-            if (tcpField != null) { tcpField.Close(); }
+            if (tcpField != null) { tcpField.Close();
+                tcpField = new TcpClient();
+            }
 
         }
 
@@ -77,10 +93,23 @@ namespace Ex1.Model
 
 
             }
+
+
+
+            catch (IOException IOe)
+            {
+                (Application.Current as App).model.ErrorList += "Client Timed out\n";
+                return null;
+            }
+
+        
+
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine("read err");
+                this.disconnect();
                 return null;
+              //  return "Server Disconnected";
 
             }
         }
@@ -98,9 +127,16 @@ namespace Ex1.Model
                 tcpField.GetStream().Write(message, 0, message.Length);
 
             }
+
+            catch(IOException ioe)
+            {
+                (Application.Current as App).model.ErrorList += "Client Timed out\n";
+                this.disconnect();
+            }
+
             catch (Exception e)
             {
-                Console.WriteLine("Write ERR : " + e.ToString());
+                (Application.Current as App).model.ErrorList += "ServerDisconnected\n";
             }
 
         }
@@ -118,4 +154,3 @@ namespace Ex1.Model
 
 
 }
-
